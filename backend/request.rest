@@ -1,0 +1,33 @@
+GET http://localhost:5000/users
+
+###
+GET http://localhost:5000/users/4
+
+
+###
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "name": "yaya",
+    "email": "yaya@gmail.com",
+    "age": 18,
+    "gender": "Female"
+
+}
+
+###
+PATCH http://localhost:5000/users/1
+Content-Type: application/json
+
+{
+    "name": "Fajar Putra Herianto",
+    "email": "fajarph.dev@gmail.com",
+    "age": 19,
+    "gender": "Male"
+
+}
+
+
+###
+DELETE http://localhost:5000/users/3
