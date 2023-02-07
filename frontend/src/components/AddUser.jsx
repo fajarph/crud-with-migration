@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const AddUser = () => {
 
@@ -8,7 +9,16 @@ const AddUser = () => {
     const [email, setEmail] = useState("");
     const [age, setAge] = useState("");
     const [gender, setGender] = useState("Male");
+    const [CountryId, setCountryId] = useState("");
+    const [HoroscopeId, setHoroscopeId] = useState("");
+    const [countries, setCountry] = useState([]);
+    const [horoscopes, setHoroscope] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        getCountry();
+        getHoroscope();
+      }, []);
 
     const saveUser = async (e) => {
         e.preventDefault();
@@ -17,12 +27,24 @@ const AddUser = () => {
                 name,
                 email,
                 age,
+                CountryId,
+                HoroscopeId,
                 gender
             });
             navigate("/")
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const getCountry = async () => {
+        const response = await axios.get("http://localhost:5000/countries")
+        setCountry(response.data);
+    }
+
+    const getHoroscope = async () => {
+        const response = await axios.get("http://localhost:5000/horoscopes")
+        setHoroscope(response.data);
     }
 
     return (
@@ -46,7 +68,7 @@ const AddUser = () => {
                         <label className="label">Email</label>
                         <div className="control">
                             <input 
-                                type="text" 
+                                type="email" 
                                 className="input" 
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -76,6 +98,36 @@ const AddUser = () => {
                                 >
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="field">
+                        <label className="label">Country</label>
+                        <div className="control">
+                            <div className="select is-fullwidth">
+                                <select
+                                    value={CountryId}
+                                    onChange={(e) => setCountryId(e.target.value)}
+                                >
+                                    {countries.map((country) => (
+                                        <option value={country.id}>{country.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="field">
+                        <label className="label">Horoscope</label>
+                        <div className="control">
+                            <div className="select is-fullwidth">
+                                <select
+                                    value={HoroscopeId}
+                                    onChange={(e) => setHoroscopeId(e.target.value)}
+                                >
+                                    {horoscopes.map((horoscope) => (
+                                        <option value={horoscope.id}>{horoscope.name}</option>
+                                    ))}
                                 </select>
                             </div>
                         </div>

@@ -37,6 +37,8 @@ const ListUser = () => {
               <th>Email</th>
               <th>Age</th>
               <th>Gender</th>
+              <th>Country</th>
+              <th>Horoscope</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -48,6 +50,8 @@ const ListUser = () => {
                 <td>{user.email}</td>
                 <td>{user.age}</td>
                 <td>{user.gender}</td>
+                <td>{user.Country.name}</td>
+                <td>{user.Horoscope.name}</td>
                 <td>
                   <Link to={`edit/${user.id}`} className='button is-small is-info'>Edit</Link>
                   <button onClick={() => delateUser(user.id)} className='button is-small is-danger'>Delete</button>

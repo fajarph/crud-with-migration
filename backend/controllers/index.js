@@ -1,8 +1,19 @@
-const { User } = require('../models')
+const { User, Country, Horoscope } = require('../models')
 
 const getUser = async(req, res) => {
     try {
-        const response = await User.findAll();
+        const response = await User.findAll({
+            include: [
+                {
+                    model: Country,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: Horoscope,
+                    attributes: ['id', 'name']
+                }
+            ]
+        });
         res.status(200).json(response);
     } catch (error) {
         console.log(error.message);
@@ -36,7 +47,17 @@ const updateUser = async(req, res) => {
         await User.update(req.body, {
             where:{
                 id: req.params.id
-            }
+            },
+            include: [
+                {
+                    model: Country,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: Horoscope,
+                    attributes: ['id', 'name']
+                }
+            ]
         });
         res.status(200).json({msg: "User Updated"});
     } catch (error) {
@@ -57,10 +78,30 @@ const deleteUser = async(req, res) => {
     }
 }
 
+const getCountries = async(req, res) => {
+    try {
+        const response = await Country.findAll();
+        res.status(200).json(response);
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const getHoroscopes = async(req, res) => {
+    try {
+        const response = await Horoscope.findAll();
+        res.status(200).json(response);
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 module.exports = {
     getUser,
     getUserById,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getCountries,
+    getHoroscopes
 }

@@ -1,7 +1,13 @@
 GET http://localhost:5000/users
 
 ###
-GET http://localhost:5000/users/4
+GET http://localhost:5000/countries
+
+###
+GET http://localhost:5000/horoscopes
+
+###
+GET http://localhost:5000/users/1
 
 
 ###
@@ -9,10 +15,12 @@ POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-    "name": "yaya",
-    "email": "yaya@gmail.com",
-    "age": 18,
-    "gender": "Female"
+    "name": "test",
+    "email": "fajarputra@gmail.com",
+    "age": 19,
+    "CountryId": "England",
+    "Horoscope": "Virgo",
+    "gender": "Male"
 
 }
 

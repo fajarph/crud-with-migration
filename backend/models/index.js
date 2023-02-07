@@ -10,6 +10,8 @@ const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 
 const UserModel = require('./user')
+const CountryModel = require('./country')
+const HoroscopeModel = require('./horoscope')
 
 let sequelize;
 if (config.use_env_variable) {
@@ -43,5 +45,7 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.user = UserModel(sequelize, Sequelize)
+db.country = CountryModel(sequelize, Sequelize)
+db.horoscope = HoroscopeModel(sequelize, Sequelize)
 
 module.exports = db;
