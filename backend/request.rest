@@ -7,6 +7,9 @@ GET http://localhost:5000/countries
 GET http://localhost:5000/horoscopes
 
 ###
+GET http://localhost:5000/hobbies
+
+###
 GET http://localhost:5000/users/1
 
 
@@ -18,8 +21,9 @@ Content-Type: application/json
     "name": "test",
     "email": "fajarputra@gmail.com",
     "age": 19,
-    "CountryId": "England",
-    "Horoscope": "Virgo",
+    "CountryId": 1,
+    "HoroscopeId": 2,
+    "HobbyId":3,
     "gender": "Male"
 
 }

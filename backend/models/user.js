@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
 
       User.belongsTo(models.Horoscope)
       models.Horoscope.hasMany(User)
+
+      User.belongsTo(models.Hobby)
+      models.Hobby.hasMany(User)
     }
   }
   User.init({
@@ -24,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     age: DataTypes.INTEGER,
     CountryId: DataTypes.INTEGER,
     HoroscopeId: DataTypes.INTEGER,
+    HobbyId: DataTypes.INTEGER,
     gender: DataTypes.STRING
   }, {
     sequelize,

@@ -1,4 +1,4 @@
-const { User, Country, Horoscope } = require('../models')
+const { User, Country, Horoscope, Hobby } = require('../models')
 
 const getUser = async(req, res) => {
     try {
@@ -10,6 +10,10 @@ const getUser = async(req, res) => {
                 },
                 {
                     model: Horoscope,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: Hobby,
                     attributes: ['id', 'name']
                 }
             ]
@@ -56,6 +60,10 @@ const updateUser = async(req, res) => {
                 {
                     model: Horoscope,
                     attributes: ['id', 'name']
+                },
+                {
+                    model: Hobby,
+                    attributes: ['id', 'name']
                 }
             ]
         });
@@ -96,6 +104,15 @@ const getHoroscopes = async(req, res) => {
     }
 }
 
+const getHobbies = async(req, res) => {
+    try {
+        const response = await Hobby.findAll();
+        res.status(200).json(response);
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 module.exports = {
     getUser,
     getUserById,
@@ -103,5 +120,6 @@ module.exports = {
     updateUser,
     deleteUser,
     getCountries,
-    getHoroscopes
+    getHoroscopes,
+    getHobbies
 }

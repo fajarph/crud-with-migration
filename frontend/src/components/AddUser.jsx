@@ -11,13 +11,16 @@ const AddUser = () => {
     const [gender, setGender] = useState("Male");
     const [CountryId, setCountryId] = useState("");
     const [HoroscopeId, setHoroscopeId] = useState("");
+    const [HobbyId, setHobbyId] = useState("");
     const [countries, setCountry] = useState([]);
     const [horoscopes, setHoroscope] = useState([]);
+    const [hobbies, setHobby] = useState([])
     const navigate = useNavigate();
 
     useEffect(() => {
-        getCountry();
-        getHoroscope();
+        getCountries();
+        getHoroscopes();
+        getHobbies();
       }, []);
 
     const saveUser = async (e) => {
@@ -29,6 +32,7 @@ const AddUser = () => {
                 age,
                 CountryId,
                 HoroscopeId,
+                HobbyId,
                 gender
             });
             navigate("/")
@@ -37,14 +41,19 @@ const AddUser = () => {
         }
     }
 
-    const getCountry = async () => {
+    const getCountries = async () => {
         const response = await axios.get("http://localhost:5000/countries")
         setCountry(response.data);
     }
 
-    const getHoroscope = async () => {
+    const getHoroscopes = async () => {
         const response = await axios.get("http://localhost:5000/horoscopes")
         setHoroscope(response.data);
+    }
+
+    const getHobbies = async () => {
+        const response = await axios.get("http://localhost:5000/hobbies")
+        setHobby(response.data);
     }
 
     return (
@@ -127,6 +136,21 @@ const AddUser = () => {
                                 >
                                     {horoscopes.map((horoscope) => (
                                         <option value={horoscope.id}>{horoscope.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="field">
+                        <label className="label">Hobby</label>
+                        <div className="control">
+                            <div className="select is-fullwidth">
+                                <select
+                                    value={HobbyId}
+                                    onChange={(e) => setHobbyId(e.target.value)}
+                                >
+                                    {hobbies.map((hobby) => (
+                                        <option value={hobby.id}>{hobby.name}</option>
                                     ))}
                                 </select>
                             </div>
