@@ -11,8 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Country.hasMany(models.User)
-      models.User.belongsTo(Country)
+      Country.hasMany(models.Student)
+      models.Student.belongsTo(Country)
+
+      Country.hasMany(models.Teacher)
+      models.Teacher.belongsTo(Country)
     }
   }
   Country.init({

@@ -2,11 +2,11 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.addColumn('Users', 'CountryId', {
+    await queryInterface.addColumn('Teachers', 'HoroscopeId', {
       type: Sequelize.DataTypes.INTEGER,
       references: {
         model: {
-          tableName: 'Countries'
+          tableName: 'Horoscopes'
         },
         key: 'id'
       },
@@ -15,11 +15,11 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.removeColumn('Users', 'CountryId', {
+    await queryInterface.removeColumn('Teachers', 'HoroscopeId', {
       type: Sequelize.DataTypes.INTEGER,
       references: {
         model: {
-          tableName: 'Countries'
+          tableName: 'Horoscopes'
         },
         key: 'id'
       },

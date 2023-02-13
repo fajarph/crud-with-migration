@@ -1,4 +1,9 @@
+//Get All User
 GET http://localhost:5000/users
+
+###
+//Get All Student
+GET http://localhost:5000/students
 
 ###
 GET http://localhost:5000/countries
@@ -9,37 +14,103 @@ GET http://localhost:5000/horoscopes
 ###
 GET http://localhost:5000/hobbies
 
+//Get Single User
 ###
-GET http://localhost:5000/users/1
+GET http://localhost:5000/students/2
 
-
+//Create User
 ###
 POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-    "name": "test",
-    "email": "fajarputra@gmail.com",
-    "age": 19,
-    "CountryId": 1,
-    "HoroscopeId": 2,
-    "HobbyId":3,
-    "gender": "Male"
-
+    "name": "Fajarrr",
+    "email": "admin@gmail.com",
+    "password": "12345678",
+    "confPassword": "12345678",
+    "role": "admin"
 }
 
+//Create Student
 ###
-PATCH http://localhost:5000/users/1
+POST http://localhost:5000/students
 Content-Type: application/json
 
 {
-    "name": "Fajar Putra Herianto",
-    "email": "fajarph.dev@gmail.com",
-    "age": 19,
-    "gender": "Male"
+    "name": "Ika",
+    "email": "Ika@gmail.com",
+    "age": 18,
+    "CountryId": 3,
+    "HoroscopeId": 2,
+    "HobbyId": 4,
+    "gender": "Female"
+    
+}
 
+
+//Update User
+###
+PATCH http://localhost:5000/users/6bee2b7d-23b3-4d53-9663-85b620e73f22
+Content-Type: application/json
+
+{
+    "name": "John Doe Bro Updated",
+    "email": "John@gmail.com",
+    "password": "",
+    "confPassword": "",
+    "role": "user"
+}
+
+//Update Student
+###
+PATCH http://localhost:5000/students/2
+Content-Type: application/json
+
+{
+    "name": "yaya",
+    "email": "yaya@gmail.com",
+    "age": 17,
+    "CountryId": 5,
+    "HoroscopeId": 1,
+    "HobbyId": 3,
+    "gender": "Female"
+}
+
+###
+//Cek Akun
+GET http://localhost:5000/me
+
+###
+//Login Admin
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "admin@gmail.com",
+    "password": "12345678"
 }
 
 
 ###
-DELETE http://localhost:5000/users/3
+//Login User
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "John@gmail.com",
+    "password": "12345678"
+}
+
+
+
+//Delete User
+###
+DELETE http://localhost:5000/users/56df1df0-3399-4e5e-b6e9-475e5b779596
+
+//Delete Srudnet
+###
+DELETE http://localhost:5000/students/2
+
+
+###
+DELETE http://localhost:5000/logout

@@ -13,6 +13,8 @@ const UserModel = require('./user')
 const CountryModel = require('./country')
 const HoroscopeModel = require('./horoscope')
 const HobbyModel = require('./hobby')
+const StudentModel = require('./student')
+const TeacherModel = require('./teacher')
 
 let sequelize;
 if (config.use_env_variable) {
@@ -45,9 +47,13 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+db.users = require('./user')(sequelize, Sequelize);
+
 db.user = UserModel(sequelize, Sequelize)
 db.country = CountryModel(sequelize, Sequelize)
 db.horoscope = HoroscopeModel(sequelize, Sequelize)
 db.hobby = HobbyModel(sequelize, Sequelize)
+db.student = StudentModel(sequelize, Sequelize)
+db.teacher = TeacherModel(sequelize, Sequelize)
 
 module.exports = db;

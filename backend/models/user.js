@@ -1,7 +1,11 @@
 'use strict';
+
+const { v4: uuidv4 } = require('uuid');
+
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -11,27 +15,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.belongsTo(models.Country)
-      models.Country.hasMany(User)
-
-      User.belongsTo(models.Horoscope)
-      models.Horoscope.hasMany(User)
-
-      User.belongsTo(models.Hobby)
-      models.Hobby.hasMany(User)
     }
   }
+
   User.init({
+    uuid: DataTypes.UUID,
     name: DataTypes.STRING,
     email: DataTypes.STRING,
-    age: DataTypes.INTEGER,
-    CountryId: DataTypes.INTEGER,
-    HoroscopeId: DataTypes.INTEGER,
-    HobbyId: DataTypes.INTEGER,
-    gender: DataTypes.STRING
+    password: DataTypes.STRING,
+    role: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',
   });
+
+  User.beforeCreate(user => user.uuid = uuidv4());
+
   return User;
 };
