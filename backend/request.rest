@@ -5,6 +5,10 @@ GET http://localhost:5000/users
 //Get All Student
 GET http://localhost:5000/students
 
+//Get All Teacher
+###
+GET http://localhost:5000/teachers
+
 ###
 GET http://localhost:5000/countries
 
@@ -16,7 +20,11 @@ GET http://localhost:5000/hobbies
 
 //Get Single User
 ###
-GET http://localhost:5000/students/2
+GET http://localhost:5000/students/3
+
+//Get Single Teacher
+###
+GET http://localhost:5000/teachers/1
 
 //Create User
 ###
@@ -47,6 +55,23 @@ Content-Type: application/json
     
 }
 
+//Create Teacher
+###
+POST http://localhost:5000/teachers
+Content-Type: application/json
+
+{
+    "name": "Uji",
+    "email": "Uji@gmail.com",
+    "age": 55,
+    "CountryId": 2,
+    "HoroscopeId": 2,
+    "HobbyId": 2,
+    "course": "IPS",
+    "gender": "Female"
+    
+}
+
 
 //Update User
 ###
@@ -73,6 +98,22 @@ Content-Type: application/json
     "CountryId": 5,
     "HoroscopeId": 1,
     "HobbyId": 3,
+    "gender": "Female"
+}
+
+//Update Teacher
+###
+PATCH http://localhost:5000/teachers/3
+Content-Type: application/json
+
+{
+    "name": "yaya",
+    "email": "yaya@gmail.com",
+    "age": 17,
+    "CountryId": 5,
+    "HoroscopeId": 1,
+    "HobbyId": 3,
+    "course": "IPS",
     "gender": "Female"
 }
 
@@ -107,10 +148,13 @@ Content-Type: application/json
 ###
 DELETE http://localhost:5000/users/56df1df0-3399-4e5e-b6e9-475e5b779596
 
-//Delete Srudnet
+//Delete Student
 ###
 DELETE http://localhost:5000/students/2
 
+//Delete Teacher
+###
+DELETE http://localhost:5000/teachers/4
 
 ###
 DELETE http://localhost:5000/logout

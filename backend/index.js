@@ -11,19 +11,20 @@ dotenv.config()
 const userRoutes = require("./routes/userRoute.js")
 const authRoutes = require("./routes/authRoute.js")
 const studentRoutes = require("./routes/studentRoute.js")
+const teacherRoutes = require("./routes/teacherRoute.js")
 
 
-// const sessionStore = SequelizeStore(session.Store)
+const sessionStore = SequelizeStore(session.Store)
 
-// const store = new sessionStore({
-//     db: db 
-// })
+const store = new sessionStore({
+    db: db 
+})
 
 app.use(session({
     secret: process.env.SESS_SECRET,
     resave: false,
     saveUninitialized: true,
-    // store: store,
+    store: store,
     cookie: {
         secure: 'auto'
     }
@@ -39,6 +40,7 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 app.use(userRoutes)
 app.use(authRoutes)
 app.use(studentRoutes)
+app.use(teacherRoutes)
 
 // store.sync()
 
