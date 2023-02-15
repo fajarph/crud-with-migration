@@ -61,13 +61,13 @@ POST http://localhost:5000/teachers
 Content-Type: application/json
 
 {
-    "name": "Uji",
-    "email": "Uji@gmail.com",
-    "age": 55,
-    "CountryId": 2,
-    "HoroscopeId": 2,
-    "HobbyId": 2,
-    "course": "IPS",
+    "name": "Bu Wulan",
+    "email": "Wulan@gmail.com",
+    "age": 38,
+    "CountryId": 5,
+    "HoroscopeId": 1,
+    "HobbyId": 3,
+    "course": "Bahasa Indonesia",
     "gender": "Female"
     
 }
@@ -88,32 +88,32 @@ Content-Type: application/json
 
 //Update Student
 ###
-PATCH http://localhost:5000/students/2
+PATCH http://localhost:5000/students/4
 Content-Type: application/json
 
 {
-    "name": "yaya",
-    "email": "yaya@gmail.com",
-    "age": 17,
-    "CountryId": 5,
-    "HoroscopeId": 1,
-    "HobbyId": 3,
+    "name": "Ika Amelia",
+    "email": "IkaAmelia@gmail.com",
+    "age": 18,
+    "CountryId": 1,
+    "HoroscopeId": 3,
+    "HobbyId": 5,
     "gender": "Female"
 }
 
 //Update Teacher
 ###
-PATCH http://localhost:5000/teachers/3
+PATCH http://localhost:5000/teachers/6
 Content-Type: application/json
 
 {
-    "name": "yaya",
-    "email": "yaya@gmail.com",
-    "age": 17,
-    "CountryId": 5,
-    "HoroscopeId": 1,
-    "HobbyId": 3,
-    "course": "IPS",
+    "name": "Bu Wulan",
+    "email": "Wulan@gmail.com",
+    "age": 40,
+    "CountryId": 4,
+    "HoroscopeId": 2,
+    "HobbyId": 5,
+    "course": "MTK",
     "gender": "Female"
 }
 
@@ -150,11 +150,11 @@ DELETE http://localhost:5000/users/56df1df0-3399-4e5e-b6e9-475e5b779596
 
 //Delete Student
 ###
-DELETE http://localhost:5000/students/2
+DELETE http://localhost:5000/students/3
 
 //Delete Teacher
 ###
-DELETE http://localhost:5000/teachers/4
+DELETE http://localhost:5000/teachers/2
 
 ###
 DELETE http://localhost:5000/logout

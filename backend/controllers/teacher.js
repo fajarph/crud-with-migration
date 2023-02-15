@@ -1,9 +1,23 @@
-const { Teacher } = require("../models")
+const { Teacher, Country, Horoscope, Hobby } = require("../models")
 
 const getTeachers = async(req, res) => {
     try {
         const response = await Teacher.findAll({
-            attributes: ["name", "email", "age", "CountryId", "HoroscopeId", "HobbyId", "course", "gender"]
+            attributes: ["id", "name", "email", "age", "CountryId", "HoroscopeId", "HobbyId", "course", "gender"],
+            include: [
+                {
+                    model: Country,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: Horoscope,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: Hobby,
+                    attributes: ['id', 'name']
+                }
+            ]
         });
         res.status(200).json(response)
     } catch (error) {
@@ -14,7 +28,6 @@ const getTeachers = async(req, res) => {
 const getTeacherById = async(req, res) => {
     try {
         const response = await Teacher.findOne({
-            attributes:["name", "email", "age", "CountryId", "HoroscopeId", "HobbyId", "course", "gender"],
             where: {
                 id: req.params.id
             }
@@ -26,21 +39,11 @@ const getTeacherById = async(req, res) => {
 }
 
 const createTeacher = async(req, res) => {
-    const {name, email, age, CountryId, HoroscopeId, HobbyId, course, gender,} = req.body;
     try {
-        await Teacher.create({
-            name: name,
-            email: email,
-            age: age,
-            CountryId: CountryId,
-            HoroscopeId: HoroscopeId,
-            HobbyId: HobbyId,
-            course: course,
-            gender: gender
-        })
-        res.status(201).json({msg: "Teacher Created "})
+        await Teacher.create(req.body);
+        res.status(201).json({msg: "Teacher Created"});
     } catch (error) {
-        res.status(400).json({msg: error.message})
+        res.status(500).json({msg: error.message})
     }
 }
 
@@ -50,6 +53,20 @@ const updateTeacher = async(req, res) => {
             where:{
                 id: req.params.id
             },
+            include: [
+                {
+                    model: Country,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: Horoscope,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: Hobby,
+                    attributes: ['id', 'name']
+                }
+            ]
         });
         res.status(200).json({msg: "Teacher Updated"});
     } catch (error) {

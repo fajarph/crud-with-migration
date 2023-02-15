@@ -1,9 +1,23 @@
-const { Student } = require("../models")
+const { Student, Country, Horoscope, Hobby } = require("../models")
 
 const getStudents = async(req, res) => {
     try {
         const response = await Student.findAll({
-            attributes: ["name", "email", "age", "CountryId", "HoroscopeId", "HobbyId", "gender"]
+            attributes: ["id", "name", "email", "age", "CountryId", "HoroscopeId", "HobbyId", "gender"],
+            include: [
+                {
+                    model: Country,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: Horoscope,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: Hobby,
+                    attributes: ['id', 'name']
+                }
+            ]
         });
         res.status(200).json(response)
     } catch (error) {
@@ -14,7 +28,6 @@ const getStudents = async(req, res) => {
 const getStudentById = async(req, res) => {
     try {
         const response = await Student.findOne({
-            attributes:["name", "email", "age", "CountryId", "HoroscopeId", "HobbyId", "gender"],
             where: {
                 id: req.params.id
             }
@@ -26,20 +39,11 @@ const getStudentById = async(req, res) => {
 }
 
 const createStudent = async(req, res) => {
-    const {name, email, age, CountryId, HoroscopeId, HobbyId, gender,} = req.body;
     try {
-        await Student.create({
-            name: name,
-            email: email,
-            age: age,
-            CountryId: CountryId,
-            HoroscopeId: HoroscopeId,
-            HobbyId: HobbyId,
-            gender: gender
-        })
-        res.status(201).json({msg: "Student Created "})
+        await Student.create(req.body);
+        res.status(201).json({msg: "Students Created"});
     } catch (error) {
-        res.status(400).json({msg: "sial"})
+        res.status(500).json({msg: error.message})
     }
 }
 
@@ -49,6 +53,20 @@ const updateStudent = async(req, res) => {
             where:{
                 id: req.params.id
             },
+            include: [
+                {
+                    model: Country,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: Horoscope,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: Hobby,
+                    attributes: ['id', 'name']
+                }
+            ]
         });
         res.status(200).json({msg: "Student Updated"});
     } catch (error) {
