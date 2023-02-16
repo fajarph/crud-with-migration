@@ -29,7 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     CountryId: DataTypes.INTEGER,
     HoroscopeId: DataTypes.INTEGER,
     HobbyId: DataTypes.INTEGER,
-    gender: DataTypes.STRING
+    gender: DataTypes.STRING,
+    image: DataTypes.STRING,
+    url: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Student',
