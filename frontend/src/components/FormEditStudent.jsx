@@ -3,7 +3,9 @@ import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const FormEditStudent = () => {
-    const [name, setName] = useState("")
+    const [title, setTitle] = useState("")
+    const [file, setFile] = useState("")
+    const [preview, setPreview] = useState("")
     const [email, setEmail] = useState("")
     const [age, setAge] = useState("")
     const [CountryId, setCountryId] = useState("")
@@ -24,17 +26,28 @@ const FormEditStudent = () => {
         getHobby()
     }, [])
 
+    const loadImage = (e) => {
+        const image = e.target.files[0]
+        setFile(image)
+        setPreview(URL.createObjectURL(image))
+    }
+
     const EditStudent = async(e) => {
         e.preventDefault()
+        const formData = new FormData()
+        formData.append("file", file)
+        formData.append("title", title)
+        formData.append("email", email)
+        formData.append("age", age)
+        formData.append("CountryId", CountryId)
+        formData.append("HoroscopeId", HoroscopeId)
+        formData.append("HobbyId", HobbyId)
+        formData.append("gender", gender)
         try {
-            await axios.patch(`http://localhost:5000/students/${id}`, {
-                name,
-                email,
-                age,
-                CountryId,
-                HoroscopeId,
-                HobbyId,
-                gender
+            await axios.patch(`http://localhost:5000/students/${id}`, formData, {
+                headers:{
+                    "Content-Type": "multipart/form-data"
+                }
             })
             navigate("/students")
         } catch (error) {
@@ -46,7 +59,9 @@ const FormEditStudent = () => {
 
     const getStudentById = async () => {
         const response = await axios.get(`http://localhost:5000/students/${id}`)
-        setName(response.data.name)
+        setTitle(response.data.name)
+        setFile(response.data.image)
+        setPreview(response.data.url)
         setEmail(response.data.email)
         setAge(response.data.age)
         setCountryId(response.data.CountryId)
@@ -85,8 +100,8 @@ const FormEditStudent = () => {
                             <input 
                                 type="text" 
                                 className='input' 
-                                value={name} 
-                                onChange={(e) => setName(e.target.value)}
+                                value={title} 
+                                onChange={(e) => setTitle(e.target.value)}
                                 placeholder='Name'
                             />
                         </div>
@@ -175,8 +190,34 @@ const FormEditStudent = () => {
                         </div>
                     </div>
                     <div className='field'>
+                        <label className='label '>Image</label>
                         <div className='control'>
-                            <button type='submit' className='button is-success'>Save</button>
+                            <div className='file'>
+                                <label className="file-label">
+                                    <input 
+                                        type="file" 
+                                        className='file-input' 
+                                        onChange={loadImage}
+                                    />
+                                    <span className='file-cta'>
+                                        <span className='file-label'> Choose a file... </span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    {preview ? (
+                        <figure className='image is-128x128'>
+                            <img src={preview} alt="Preview Image" />
+                        </figure>
+                    ): ( 
+                        ""
+                    )}
+
+                    <div className='field mt-5'>
+                        <div className='control'>
+                            <button type='submit' className='button is-success mt-3'>Update</button>
                         </div>
                     </div>
                 </form>

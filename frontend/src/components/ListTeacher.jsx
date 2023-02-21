@@ -38,6 +38,7 @@ const ListTeacher = () => {
                     <th>Hobby</th>
                     <th>Course</th>
                     <th>Gender</th>
+                    <th>Image</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -53,6 +54,13 @@ const ListTeacher = () => {
                         <td>{teacher.Hobby.name}</td>
                         <td>{teacher.course}</td>
                         <td>{teacher.gender}</td>
+                        <td>
+                            <img 
+                                className='image is-128x128'
+                                src={teacher.url} 
+                                alt="Image"
+                            />
+                        </td>
                         <td>
                             <Link to={`/teachers/edit/${teacher.id}`} className="button is-small is-info">
                                 Edit

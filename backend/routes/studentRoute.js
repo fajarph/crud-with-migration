@@ -3,10 +3,10 @@ const controllers = require('../controllers/students.js');
 const middleware = require("../middleware/authUser.js")
 const router = Router()
 
-router.get('/students',  controllers.getStudents)
-router.get('/students/:id',  controllers.getStudentById)
-router.post('/students',  controllers.createStudent)
-router.patch('/students/:id',  controllers.updateStudent)
-router.delete('/students/:id',  controllers.deleteStudent)
+router.get('/students', middleware.verifyUser, controllers.getStudents)
+router.get('/students/:id', middleware.verifyUser, controllers.getStudentById)
+router.post('/students', middleware.verifyUser, controllers.createStudent)
+router.patch('/students/:id', middleware.verifyUser, controllers.updateStudent)
+router.delete('/students/:id', middleware.verifyUser, controllers.deleteStudent)
 
 module.exports = router

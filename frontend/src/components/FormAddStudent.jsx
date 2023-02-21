@@ -3,7 +3,9 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 const FormAddStudent = () => {
-    const [name, setName] = useState("")
+    const [title, setTitle] = useState("")
+    const [file, setFile] = useState("")
+    const [preview, setPreview] = useState("")
     const [email, setEmail] = useState("")
     const [age, setAge] = useState("")
     const [CountryId, setCountryId] = useState("")
@@ -22,17 +24,28 @@ const FormAddStudent = () => {
         getHobby()
     }, [])
 
+    const loadImage = (e) => {
+        const image = e.target.files[0]
+        setFile(image)
+        setPreview(URL.createObjectURL(image))
+    }
+
     const saveStudent = async(e) => {
         e.preventDefault()
+        const formData = new FormData()
+        formData.append("file", file)
+        formData.append("title", title)
+        formData.append("email", email)
+        formData.append("age", age)
+        formData.append("CountryId", CountryId)
+        formData.append("HoroscopeId", HoroscopeId)
+        formData.append("HobbyId", HobbyId)
+        formData.append("gender", gender)
         try {
-            await axios.post('http://localhost:5000/students', {
-                name,
-                email,
-                age,
-                CountryId,
-                HoroscopeId,
-                HobbyId,
-                gender
+            await axios.post('http://localhost:5000/students', formData, {
+                headers:{
+                    "Content-Type": "multipart/form-data"
+                }
             })
             navigate("/students")
         } catch (error) {
@@ -72,8 +85,8 @@ const FormAddStudent = () => {
                             <input 
                                 type="text" 
                                 className='input' 
-                                value={name} 
-                                onChange={(e) => setName(e.target.value)}
+                                value={title} 
+                                onChange={(e) => setTitle(e.target.value)}
                                 placeholder='Name'
                             />
                         </div>
@@ -162,8 +175,34 @@ const FormAddStudent = () => {
                         </div>
                     </div>
                     <div className='field'>
+                        <label className='label '>Image</label>
                         <div className='control'>
-                            <button type='submit' className='button is-success'>Save</button>
+                            <div className='file'>
+                                <label className="file-label">
+                                    <input 
+                                        type="file" 
+                                        className='file-input' 
+                                        onChange={loadImage}
+                                    />
+                                    <span className='file-cta'>
+                                        <span className='file-label'> Choose a file... </span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    {preview ? (
+                        <figure className='image is-128x128'>
+                            <img src={preview} alt="Preview Image" />
+                        </figure>
+                    ): ( 
+                        ""
+                    )}
+
+                    <div className='field mt-5'>
+                        <div className='control'>
+                            <button type='submit' className='button is-success mt-3'>Save</button>
                         </div>
                     </div>
                 </form>
