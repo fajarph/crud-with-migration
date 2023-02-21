@@ -1,31 +1,27 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from 'react-router-dom'
-import { LoginStudent, LoginTeacher, reset } from "../features/authSlice"
+import { LoginUser, reset } from "../features/authSlice"
 
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setpassword] = useState("")    
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {student, teacher, isError, isSuccess, isLoading, message} = useSelector(
+    const {user, isError, isSuccess, isLoading, message} = useSelector(
         (state) => state.auth
     );
 
     useEffect(() => {
-        if(student || isSuccess){
-            navigate("/dashboard")
-        }
-        if(teacher || isSuccess){
+        if(user || isSuccess){
             navigate("/dashboard")
         }
         dispatch(reset())
-    },[student, teacher, isSuccess, dispatch, navigate])
+    },[user, isSuccess, dispatch, navigate])
 
     const Auth = (e) => {
         e.preventDefault();
-        dispatch(LoginStudent({email, password}))
-        dispatch(LoginTeacher({email, password}))
+        dispatch(LoginUser({email, password}))
     }
 
 

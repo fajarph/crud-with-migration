@@ -8,7 +8,7 @@ import { getMe } from '../features/authSlice'
 const Users = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {isError, student, teacher} = useSelector((state => state.auth))
+    const {isError, user} = useSelector((state => state.auth))
 
     useEffect(() => {
         dispatch(getMe())   
@@ -18,13 +18,10 @@ const Users = () => {
         if(isError){
             navigate("/")
         }  
-        if(student && student.role !== "admin"){
+        if(user && user.role !== "admin"){
             navigate("/dashboard")
         }
-        if(teacher && teacher.role !== "admin"){
-            navigate("/dashboard")
-        }
-    }, [isError, student, teacher, navigate])
+    }, [isError, user, navigate])
   return (
     <Layout>
         <ListUser />

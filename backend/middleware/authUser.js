@@ -28,5 +28,5 @@ const adminOnly = async(req, res, next) => {
 
 module.exports = {
     verifyUser,
-    adminOnly
+    adminOnly,
 }

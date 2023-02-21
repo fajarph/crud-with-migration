@@ -8,7 +8,7 @@ import { getMe } from '../features/authSlice'
 const EditTeacher = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {isError} = useSelector((state => state.auth))
+    const {isError, user} = useSelector((state => state.auth))
 
     useEffect(() => {
         dispatch(getMe())   
@@ -17,8 +17,11 @@ const EditTeacher = () => {
     useEffect(() => {
         if(isError){
             navigate("/")
-        }  
-    }, [isError, navigate])
+        }
+        if(user && user.role === "student"){
+            navigate("/dashboard")
+        }
+    }, [isError,user, navigate])
   return (
     <Layout>
         <FormEditTeacher />

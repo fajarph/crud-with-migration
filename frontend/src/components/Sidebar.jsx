@@ -7,7 +7,7 @@ import { LogOut, reset } from "../features/authSlice"
 const Sidebar = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {student} = useSelector((state) => state.auth)
+    const {user} = useSelector((state) => state.auth)
     
 
     const logout = () => {
@@ -34,7 +34,7 @@ const Sidebar = () => {
                         Students
                     </NavLink>
                 </li>
-                {student && student.role !== "student" && (
+                {user && user.role !== "student" && (
                     <li>
                         <NavLink to={"/teachers"}>
                             <IoPeople/>
@@ -43,7 +43,7 @@ const Sidebar = () => {
                     </li>
                 )}
             </ul>
-            {student && student.role === "admin" && (
+            {user && user.role === "admin" && (
                 <div>
                     <p className="menu-label">
                         Admin

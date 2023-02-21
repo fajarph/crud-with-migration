@@ -3,7 +3,6 @@ const controllers = require('../controllers/users.js');
 const middleware = require("../middleware/authUser.js")
 const router = Router()
 
-router.get('/', (req, res) => res.send('Hey Fajar'))
 router.get('/countries', controllers.getCountries)
 router.get('/horoscopes', controllers.getHoroscopes)
 router.get('/hobbies', controllers.getHobbies)

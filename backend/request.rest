@@ -3,11 +3,11 @@ GET http://localhost:5000/users
 
 ###
 //Get All Student
-GET http://localhost:5000/students
+GET http://localhost:5000/students?search_query=Fajar&page=0&limit=5
 
 //Get All Teacher
 ###
-GET http://localhost:5000/teachers
+GET http://localhost:5000/teachers?search_query=Fajar&page=0&limit=5
 
 ###
 GET http://localhost:5000/countries
@@ -133,15 +133,24 @@ Content-Type: application/json
 
 
 ###
-//Login User
+//Login Student
 POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email": "John@gmail.com",
-    "password": "12345678"
+    "email": "Fajar@gmail.com",
+    "password": "123456789"
 }
 
+###
+//Login Teacher
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "Ika@gmail.com",
+    "password": "123456789"
+}
 
 
 //Delete User

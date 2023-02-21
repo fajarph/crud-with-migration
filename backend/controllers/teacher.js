@@ -1,30 +1,73 @@
 const { Teacher, Country, Horoscope, Hobby } = require("../models")
 const path = require("path")
 const fs = require("fs")
+const { Op } = require("sequelize")
 
 const getTeachers = async(req, res) => {
-    try {
-        const response = await Teacher.findAll({
-            attributes: ["id", "name", "email", "age", "CountryId", "HoroscopeId", "HobbyId", "course", "gender", "image", "url"],
-            include: [
-                {
-                    model: Country,
-                    attributes: ['id', 'name']
-                },
-                {
-                    model: Horoscope,
-                    attributes: ['id', 'name']
-                },
-                {
-                    model: Hobby,
-                    attributes: ['id', 'name']
-                }
-            ]
-        });
-        res.status(200).json(response)
-    } catch (error) {
-        res.status(500).json({msg: error.message})
-    }
+    const page = parseInt(req.query.page) || 0
+    const limit = parseInt(req.query.limit) || 10
+    const search = req.query.search_query || ""
+    const offset = limit * page
+    const totalRows = await Teacher.count({
+        where:{
+            [Op.or]: [{name:{
+                [Op.like]: '%'+search+'%'
+            }}, {email:{
+                [Op.like]: '%'+search+'%'
+            }}]
+        },
+        include: [
+            {
+                model: Country,
+                attributes: ['id', 'name']
+            },
+            {
+                model: Horoscope,
+                attributes: ['id', 'name']
+            },
+            {
+                model: Hobby,
+                attributes: ['id', 'name']
+            }
+        ]
+    })
+    const totalPage = Math.ceil(totalRows / limit)
+    const result = await Teacher.findAll({
+        where:{
+            [Op.or]: [{name:{
+                [Op.like]: '%'+search+'%'
+            }}, {email:{
+                [Op.like]: '%'+search+'%'
+            }}]
+        },
+        include: [
+            {
+                model: Country,
+                attributes: ['id', 'name']
+            },
+            {
+                model: Horoscope,
+                attributes: ['id', 'name']
+            },
+            {
+                model: Hobby,
+                attributes: ['id', 'name']
+            }
+        ],
+        offset: offset,
+        limit: limit,
+        order:[
+            ['id', 'DESC']
+        ]
+        
+    })
+    res.json({
+        result: result,
+        page: page,
+        limit: limit,
+        totalRows: totalRows,
+        totalPage: totalPage
+    })
 }
 
 const getTeacherById = async(req, res) => {
