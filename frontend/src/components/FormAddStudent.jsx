@@ -14,8 +14,9 @@ const FormAddStudent = () => {
     const [horoscopes, setHoroscope] = useState([])
     const [HobbyId, setHobbyId] = useState("")
     const [hobbies, setHobby] = useState([])
-    const [gender, setGender] = useState("Male")
+    const [gender, setGender] = useState("")
     const [msg, setMsg] = useState("")
+    const [errMsgs, setErrMsgs] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -51,7 +52,20 @@ const FormAddStudent = () => {
         } catch (error) {
             if(error.response) {
                 setMsg(error.response.data.msg)
+                setErrMsgs(error.response.data.message)
             }
+        }
+    }
+
+    const filterErrMsgs = (fieldName) => {
+        if (errMsgs.length === 0) {
+            return
+        }
+        
+        const item = errMsgs.filter((err) => err.path[0] === fieldName)[0]
+
+        if (item) {
+            return item.message
         }
     }
 
@@ -91,11 +105,14 @@ const FormAddStudent = () => {
                             />
                         </div>
                     </div>
+                    {
+                        filterErrMsgs('title') && <p className='has-text-danger'>{filterErrMsgs('title')}</p>
+                    }
                     <div className='field'>
                         <label className='label'>Email</label>
                         <div className='control'>
                             <input 
-                                type="text" 
+                                type="email" 
                                 className='input'
                                 value={email} 
                                 onChange={(e) => setEmail(e.target.value)}
@@ -103,11 +120,14 @@ const FormAddStudent = () => {
                             />
                         </div>
                     </div>
+                    {
+                        filterErrMsgs('email') && <p className='has-text-danger'>{filterErrMsgs('email')}</p>
+                    }
                     <div className='field'>
                         <label className='label'>Age</label>
                         <div className='control'>
                             <input 
-                            type="text" 
+                            type="number" 
                             className='input' 
                             value={age} 
                             onChange={(e) => setAge(e.target.value)}
@@ -115,6 +135,9 @@ const FormAddStudent = () => {
                         />
                         </div>
                     </div>
+                    {
+                        filterErrMsgs('age') && <p className='has-text-danger'>{filterErrMsgs('age')}</p>
+                    }
                     <div className='field'>
                         <label className='label'>Country</label>
                         <div className='control'>
@@ -123,6 +146,7 @@ const FormAddStudent = () => {
                                 value={CountryId} 
                                 onChange={(e) => setCountryId(e.target.value)}
                                 >
+                                    <option value="" disabled selected hidden>Select Country</option>
                                     {countries.map((country) => (
                                         <option value={country.id}>{country.name}</option>
                                     ))}
@@ -130,6 +154,9 @@ const FormAddStudent = () => {
                             </div>
                         </div>
                     </div>
+                    {
+                        filterErrMsgs('CountryId') && <p className='has-text-danger'>{filterErrMsgs('CountryId')}</p>
+                    }
                     <div className='field'>
                         <label className='label'>Horoscope</label>
                         <div className='control'>
@@ -138,6 +165,7 @@ const FormAddStudent = () => {
                                 value={HoroscopeId} 
                                 onChange={(e) => setHoroscopeId(e.target.value)}
                                 >
+                                    <option value="" disabled selected hidden>Select Horoscope</option>
                                     {horoscopes.map((horoscope) => (
                                         <option value={horoscope.id}>{horoscope.name}</option>
                                     ))}
@@ -145,6 +173,9 @@ const FormAddStudent = () => {
                             </div>
                         </div>
                     </div>
+                    {
+                        filterErrMsgs('HoroscopeId') && <p className='has-text-danger'>{filterErrMsgs('HoroscopeId')}</p>
+                    }
                     <div className='field'>
                         <label className='label'>Hobby</label>
                         <div className='control'>
@@ -153,6 +184,7 @@ const FormAddStudent = () => {
                                 value={HobbyId} 
                                 onChange={(e) => setHobbyId(e.target.value)}
                                 >   
+                                    <option value="" disabled selected hidden>Select Hobby</option>
                                     {hobbies.map((hobby) => (
                                         <option value={hobby.id}>{hobby.name}</option>
                                     ))}
@@ -160,6 +192,9 @@ const FormAddStudent = () => {
                             </div>
                         </div>
                     </div>
+                    {
+                        filterErrMsgs('HobbyId') && <p className='has-text-danger'>{filterErrMsgs('HobbyId')}</p>
+                    }
                     <div className='field'>
                         <label className='label'>Gender</label>
                         <div className='control'>
@@ -168,12 +203,16 @@ const FormAddStudent = () => {
                                 value={gender} 
                                 onChange={(e) => setGender(e.target.value)}
                                 >
+                                    <option value="" disabled selected hidden>Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
                             </div>
                         </div>
                     </div>
+                    {
+                        filterErrMsgs('gender') && <p className='has-text-danger'>{filterErrMsgs('gender')}</p>
+                    }
                     <div className='field'>
                         <label className='label '>Image</label>
                         <div className='control'>
@@ -191,6 +230,9 @@ const FormAddStudent = () => {
                             </div>
                         </div>
                     </div>
+                    {
+                        filterErrMsgs('file') && <p className='has-text-danger'>{filterErrMsgs('file')}</p>
+                    }
 
                     {preview ? (
                         <figure className='image is-128x128'>

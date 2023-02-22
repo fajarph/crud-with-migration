@@ -5,7 +5,7 @@ import { LoginUser, reset } from "../features/authSlice"
 
 const Login = () => {
     const [email, setEmail] = useState("")
-    const [password, setpassword] = useState("")    
+    const [password, setpassword] = useState("")   
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {user, isError, isSuccess, isLoading, message} = useSelector(
@@ -51,11 +51,12 @@ const Login = () => {
                                 <label className='label'>Password</label>
                                 <div className='control'>
                                     <input 
-                                    type="password" 
-                                    className='input' 
-                                    value={password} 
-                                    onChange={(e)=>setpassword(e.target.value)} 
-                                    placeholder='******'/>
+                                        type="password" 
+                                        className='input' 
+                                        value={password} 
+                                        onChange={(e)=>setpassword(e.target.value)} 
+                                        placeholder='******'
+                                    />
                                 </div>
                             </div>
                             <div className='field mt-5'>
